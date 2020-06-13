@@ -1,0 +1,19 @@
+export const SEARCH_VEHICLE = "SEARCH_VEHICLE";
+export const FILTER_VEHICLE = "FILTER_VEHICLE";
+export const SHOW_BOOKINGS = "SHOW_BOOKINGS";
+
+export const REGISTER_USER = "REGISTER_USER";
+export const LOGIN_USER = "LOGIN_USER";
+export const LOGOUT_USER = "LOGOUT_USER";
+
+export const BOOKING_DATA = "BOOKING_DATA";
+export const PAYMENT_DATA = "PAYMENT_DATA";
+
+export const ADD_VEHICLE = "ADD_VEHICLE";
+export const UPDATE_VEHICLE = "UPDATE_VEHICLE";
+
+export const SORT_DATA = "SORT_DATA";
+export const UPDATE_BILLS = "UPDATE_BILLS";
+export const FILTER_EQUAL_DATA = "FILTER_EQUAL_DATA";
+export const SORT_USER_DATA = "SORT_USER_DATA";
+export const FILTER_EQUAL_USER_DATA = "FILTER_EQUAL_USER_DATA";
