@@ -100,3 +100,28 @@ def userToken():
             "error":False,
             "message":"Valid Token"
         })
+@app.route('/restaurant', methods=['POST'])
+def addRestaurant():
+    location = request.json['location']
+    name = request.json['name']
+    rating = request.json['rating']
+    description = request.json['description']
+    phoneno = request.json['mobile']
+    owner = request.json['owner']
+
+    cur = mysql.connection.cursor()
+    
+    cur.execute(''' INSERT INTO hotel(name, location, rating, description, mobile, owner) VALUES("%s", "%s", "%s", "%s", "%s", "%s"); ''' % (
+        name, location, rating, description, phoneno, owner))
+    mysql.connection.commit()
+    cur.close()
+
+    return json.dumps({"message": "Restaurant Added successfully", "error": False})
+
+
+@app.route('/restaurant', methods=['GET'])
+def viewAllRestaurants():
+    cur = mysql.connection.cursor()
+    cur.execute(''' SELECT * from restaurant ''')
+    result = cur.fetchall()
+    return json.dumps({"Restaurants": result})
