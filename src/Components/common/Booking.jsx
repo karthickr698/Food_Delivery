@@ -1,60 +1,14 @@
-import React, { useState, useEffect } from "react";
-import { Redirect, Link } from 'react-router-dom'
+import React from "react";
+import { Link } from 'react-router-dom'
 import { connect } from "react-redux";
 import { addItems, minusItems, getPay } from '../../Redux/action'
-//import { GridSpinner } from "react-spinners-kit";
-import swal from "sweetalert"
 
 function Booking(props) {
-
-    // const [start, setStart] = useState(0);
-    // const [end, setEnd] = useState(0)
-    // const [destination, setDestination] = useState(0)
-
-
-    // let dt = new Date();
-    // let dateNow = dt.getUTCDate();
-    // let year = dt.getUTCFullYear();
-    // let month = dt.getUTCMonth();
-    // month = month + 1;
-
-    const [loading, setLoading] = useState(false);
-    // const [direct, setdirect] = useState(false);
-
-    // let name = props.match.params.name;
-    // let vehicle = props.data.find(ele => {
-    //     return ele.modal_name === name;
-    // });
-
-    // const clickHandler = () => {
-    //     if (start.length > 0 && end.length > 0 && destination.length > 0) {
-    //         props.booking_data(start, end, destination, vehicle)
-    //         setLoading(true);
-    //         const timer = setTimeout(() => {
-    //             setLoading(false);
-    //             setdirect(true);
-    //         }, 2000);
-    //         return () => clearTimeout(timer);
-    //     }
-    //     else {
-    //         swal("All Fields Are Required")
-    //     }
-    // };
-
-    // const handleChange = (e) => {
-    //     if (e.target.name === "start")
-    //         setStart(e.target.value)
-    //     else if (e.target.name === "end")
-    //         setEnd(e.target.value)
-    //     else
-    //         setDestination(e.target.value)
-    // }
-
 
 
     console.log(props)
 
-    const { item, addItems, minusItems, getpay, cart, amt } = props
+    const { item, addItems, minusItems, getpay, amt } = props
 
 
 

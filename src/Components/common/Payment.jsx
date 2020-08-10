@@ -7,7 +7,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const Payment = (props) => {
     console.log(props)
-    const { cart, res_name, amount } = props
+    const { cart, amount } = props
 
     const [modal, setModal] = useState(false);
 
@@ -20,6 +20,7 @@ const Payment = (props) => {
     const [pay, setPay] = useState(0)
     const handleChange = (e) => {
         setPay(e.target.value)
+        console.log(pay)
     }
 
     const handleCoupon = (e) => {
@@ -29,14 +30,10 @@ const Payment = (props) => {
 
     const [iscoupon, setIscoupon] = useState(false)
     const [coupon_value, setValue] = useState(0)
-    let billId = 4890;
 
     let total = Number(amount) - Number(coupon_value)
 
     const [loading, setLoading] = useState(false);
-
-    let today = new Date();
-    //let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
 
     const clickHandler = () => {
         setLoading(true);
@@ -70,7 +67,7 @@ const Payment = (props) => {
                                 </div>
                             )
                         })}
-                        {iscoupon ? <h1 className="card-text"></h1> :
+                        {iscoupon ? null :
                             <h1 className="card-text">Total  Amount : {amount}</h1>}
                         {iscoupon ? <strong>Discount Amount : {coupon_value}</strong> : null}
                         {iscoupon ? <h1 className="card-text">Total Payable Amount : {total} </h1> : null}

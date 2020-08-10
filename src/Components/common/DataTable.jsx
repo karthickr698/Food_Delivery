@@ -3,7 +3,6 @@ import { Button } from '@material-ui/core'
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { fetchItem } from '../../Redux/action'
-import swal from 'sweetalert'
 import styles from './common.module.css'
 
 function Table({ data, totalData, changePage, changePageData, filter, num, curr_page, fetchItem }) {
@@ -67,7 +66,7 @@ function Table({ data, totalData, changePage, changePageData, filter, num, curr_
             <div>
                 <ul className="pagination pagination-lg justify-content-center" data-aos="fade-up-right" data-aos-offset="140" data-aos-delay="100" data-aos-duration="200" data-aos-easing="ease-in-out" data-aos-once="true">
                     {paginate.map(ele => {
-                        if (ele == curr_page) {
+                        if (ele === curr_page) {
                             return (
                                 <li className="page-item active">
                                     <Button

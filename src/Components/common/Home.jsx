@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchHotel, fetchItem } from '../../Redux/action'
+import { fetchHotel } from '../../Redux/action'
 import DataTable from "./DataTable";
-//import { searchVehicle } from '../../Redux/rentAction'
 
 function Home({ res, item, fetchHotel }) {
 
@@ -25,7 +24,7 @@ function Home({ res, item, fetchHotel }) {
 
     useEffect(() => {
         fetchHotel();
-    }, []);
+    });
 
     console.log(res)
     console.log(item)
