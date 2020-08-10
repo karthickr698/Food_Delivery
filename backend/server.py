@@ -6,11 +6,13 @@ import time
 import json
 import jwt
 
+
 app = Flask(__name__)
-app.config['MYSQL_HOST'] = 'localhost'
-app.config['MYSQL_USER'] = 'root'
+app.config['MYSQL_HOST'] = 'database-2.cqofpnfqh2cj.us-east-2.rds.amazonaws.com'
+app.config['MYSQL_USER'] = 'agoda'
 app.config['MYSQL_PASSWORD'] = 'karthick98'
 app.config['MYSQL_DB'] = 'food_delivery'
+
 
 CORS(app)
 mysql = MySQL(app)
@@ -100,28 +102,20 @@ def userToken():
             "error":False,
             "message":"Valid Token"
         })
-@app.route('/restaurant', methods=['POST'])
-def addRestaurant():
-    location = request.json['location']
-    name = request.json['name']
-    rating = request.json['rating']
-    description = request.json['description']
-    phoneno = request.json['mobile']
-    owner = request.json['owner']
-
-    cur = mysql.connection.cursor()
-    
-    cur.execute(''' INSERT INTO hotel(name, location, rating, description, mobile, owner) VALUES("%s", "%s", "%s", "%s", "%s", "%s"); ''' % (
-        name, location, rating, description, phoneno, owner))
-    mysql.connection.commit()
-    cur.close()
-
-    return json.dumps({"message": "Restaurant Added successfully", "error": False})
-
 
 @app.route('/restaurant', methods=['GET'])
 def viewAllRestaurants():
     cur = mysql.connection.cursor()
-    cur.execute(''' SELECT * from restaurant ''')
+    cur.execute(''' SELECT * from hotels ''')
     result = cur.fetchall()
     return json.dumps({"Restaurants": result})
+
+
+@app.route('/restaurant/<id>', methods=['GET'])
+def viewAll(id):
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT item_name, price, photo,id FROM item WHERE item_id = "%d";'''%(int(id)))
+    result = cur.fetchall()
+    return json.dumps({"Restaurants": result})
+
+
