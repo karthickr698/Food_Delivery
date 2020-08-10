@@ -1,31 +1,34 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { fetchHotel, fetchItem } from '../../Redux/action'
 import DataTable from "./DataTable";
-import { searchVehicle } from '../../Redux/rentAction'
+//import { searchVehicle } from '../../Redux/rentAction'
 
-function Home({ auth, data, searchVehicle, user_data, user_datas }) {
+function Home({ res, item, fetchHotel }) {
 
 
     const [pageNo, setPageNo] = useState(1);
     const [noOfData, setNoOfData] = useState(6);
-    const [search, setSearch] = useState("");
     const indexPrevData = Math.floor((pageNo - 1) * noOfData);
     const indexCurrData = pageNo * noOfData;
-    const dataToShow = data.slice(indexPrevData, indexCurrData);
+    const dataToShow = res.slice(indexPrevData, indexCurrData);
 
     const changePageData = num => {
         setNoOfData(num);
         return setPageNo(1);
     };
 
-    const changeHandler = e => {
-        setSearch(e.target.value);
-        searchVehicle(e.target.value);
-    };
 
     const changePage = (num) => {
         return setPageNo(num);
     };
+
+    useEffect(() => {
+        fetchHotel();
+    }, []);
+
+    console.log(res)
+    console.log(item)
     return (
         <div >
             <div data-aos="fade-up-right" data-aos-offset="140" data-aos-delay="200" data-aos-duration="1000" data-aos-easing="ease-in-out" data-aos-once="false" >
@@ -33,16 +36,14 @@ function Home({ auth, data, searchVehicle, user_data, user_datas }) {
                     <input
                         style={{ textAlign: "center" }}
                         className="form-control"
-                        placeholder="search Vehicles "
-                        value={search}
-                        onChange={changeHandler}
+                        placeholder="search Restaurants "
                     />
                 </div>
                 <div className="col-md-10 m-auto p-4">
-                    <h2 className="text-center pb-3">All Vehicles</h2>
+                    <h2 className="text-center pb-3">All Restaurants</h2>
                     <DataTable
                         data={dataToShow}
-                        totalData={data}
+                        totalData={res}
                         changePage={changePage}
                         num={noOfData}
                         changePageData={changePageData}
@@ -55,12 +56,10 @@ function Home({ auth, data, searchVehicle, user_data, user_datas }) {
 }
 
 const mapStateToProps = state => ({
-    auth: state.user.isauth,
-    data: state.rent.data,
-    user_data: state.user.user_data,
-    user_datas: state.user.user_datas
+    res: state.res
 });
 const mapDispatchToProps = dispatch => ({
-    searchVehicle: item => dispatch(searchVehicle(item))
+    fetchHotel: () => dispatch(fetchHotel()),
+
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

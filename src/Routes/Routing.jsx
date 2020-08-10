@@ -3,9 +3,9 @@ import { Link, Route, Switch } from "react-router-dom";
 import swal from 'sweetalert'
 //import logos from "../logo1.png";
 import { connect } from "react-redux";
-// import Home from "../Components/common/Home";
-// import Booking from "../Components/common/Booking";
-// import Payment from "../Components/common/Payment";
+import Home from "../Components/common/Home";
+import Booking from "../Components/common/Booking";
+import Payment from "../Components/common/Payment";
 import Register from "../Components/auth/Register";
 import Login from "../Components/auth/UserLogin";
 //import { logout } from "../Redux/userAction";
@@ -19,11 +19,8 @@ class Routing extends Component {
         return (
             <>
                 <div className=" p-3">
-                    <h2 className="text-center display-5">Vehicle Renting</h2>
+                    <h2 className="text-center display-5">Food Delivery System</h2>
                     <ul className="nav">
-                        {/* <li className="image img-fluid">
-                            <img height="100px" className="nav-img" src={logos} alt="." />
-                        </li> */}
                         <li
                             onClick={this.change}
                             name="home"
@@ -97,23 +94,28 @@ class Routing extends Component {
                 </div>
                 <div className="">
                     <Switch>
-                        {/* <Route exact path="/" component={() => <Home />} /> */}
+                        <Route exact path="/" component={() => <Home />} />
                         <Route
                             path="/register"
                             component={(props) => <Register {...props} />}
                         />
                         <Route path="/login" component={(props) => <Login {...props} />} />
-                        {/* <Route exact path="/booking" component={() => <BillHistory />} />
-                        <Route exact path="/user" component={() => <UserInfo />} />
                         <Route
                             exact
-                            path="/booking/:name"
+                            path="/booking/:id"
                             component={(props) => <Booking {...props} />}
                         />
                         <Route
+                            path="/pay"
+                            component={(props) => <Payment {...props} />}
+                        />
+                        {/*<Route
                             path="/booking/:name/pay"
                             component={(props) => <Payment {...props} />}
-                        /> */}
+                        />
+                         <Route exact path="/booking" component={() => <BillHistory />} />
+                        <Route exact path="/user" component={() => <UserInfo />} />
+                            */}
                         <Route render={() => <div>404 Not Fount</div>} />
                     </Switch>
                 </div>

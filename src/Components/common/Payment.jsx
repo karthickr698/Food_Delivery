@@ -2,13 +2,12 @@ import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import ISLoader from "./Isloader";
 import swal from "sweetalert"
-import { payment_data } from '../../Redux/userAction'
-import { showBookings } from '../../Redux/rentAction'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 const Payment = (props) => {
-    const { booking, className } = props
+    console.log(props)
+    const { cart, res_name, amount } = props
 
     const [modal, setModal] = useState(false);
 
@@ -32,29 +31,15 @@ const Payment = (props) => {
     const [coupon_value, setValue] = useState(0)
     let billId = 4890;
 
-    let total = (Number(booking.vehicle.cost.per_day) * 5) - Number(coupon_value)
+    let total = Number(amount) - Number(coupon_value)
 
     const [loading, setLoading] = useState(false);
 
     let today = new Date();
-    let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
+    //let date = (today.getMonth() + 1) + '-' + today.getDate() + '-' + today.getFullYear();
 
     const clickHandler = () => {
         setLoading(true);
-        let bill_data = {
-            "billId": String(billId++),
-            "billAmount": String(total),
-            "startDate": String(booking.startDate),
-            "endDate": String(booking.endDate),
-            "bookedDate": String(date),
-            "origin": String(booking.vehicle.location),
-            "destination": String(booking.des),
-            "vehicle_no": String(booking.vehicle.id),
-            "paymentMethod": String(pay),
-            "category": String(booking.vehicle.category)
-        }
-        props.showBookings(booking.vehicle.id)
-        props.payment_data(bill_data)
         const timer = setTimeout(() => {
             setLoading(false);
             swal("Payment Successful", "Your booking has been made! ", "success");
@@ -75,35 +60,39 @@ const Payment = (props) => {
                         Bill Details
                     </div>
                     <div className="card-body">
-                        <p className="card-text">{booking.vehicle.category} Name : {booking.vehicle.company} {booking.vehicle.modal_name}</p>
-                        <p className="card-text">Rent Start Date : {booking.startDate}</p>
-                        <p className="card-text">Rent End Date : {booking.endDate}</p>
-                        <p className="card-text">Origin Location : {booking.vehicle.location}</p>
-                        <p className="card-text">Destination Location : {booking.des}</p>
-                        <p className="card-text">Vehicle Number : {booking.vehicle.vehicle_no}</p>
-                        {!iscoupon ? <h1 className="card-text">Total Payable Amount : {booking.vehicle.cost.per_day * 5}</h1> :
-                            <h1 className="card-text">Total  Amount : {booking.vehicle.cost.per_day * 5}</h1>}
+                        {cart.map(ele => {
+                            return (
+                                <div style={{ textAlign: "center" }}>
+                                    <div className="card-text">{ele.name}</div>
+                                    <br></br>
+                                    <div className="card-text" style={{ fontWeight: "bold" }}>{ele.price}  x  {ele.quantity}  =  {Number(ele.price) * Number(ele.quantity)}</div>
+                                    <br></br>
+                                </div>
+                            )
+                        })}
+                        {iscoupon ? <h1 className="card-text"></h1> :
+                            <h1 className="card-text">Total  Amount : {amount}</h1>}
                         {iscoupon ? <strong>Discount Amount : {coupon_value}</strong> : null}
-                        {iscoupon ? <h1 className="card-text">Total Payable Amount : {total}</h1> : null}
+                        {iscoupon ? <h1 className="card-text">Total Payable Amount : {total} </h1> : null}
                     </div>
                 </div>
 
                 <Button color="success" onClick={toggle}>Apply Coupon</Button>
                 <Modal isOpen={modal} modalTransition={{ timeout: 100 }} backdropTransition={{ timeout: 100 }}
-                    toggle={toggle} className={className}>
+                    toggle={toggle} >
                     <ModalHeader toggle={toggle} className="text-center">Coupons</ModalHeader>
                     <ModalBody >
                         <div onChange={handleCoupon}>
                             <label>
-                                <input type="radio" value="100" name="gender" />Vehicle Coupon Code for All Users : 40% Off upto Rs. 700 on Vehicle rental Order
+                                <input type="radio" value="50" name="gender" />Food Coupon Code for All Users : 40% Off upto Rs. 700 on Vehicle rental Order
                             </label>
                             <hr />
                             <label>
-                                <input type="radio" value="200" name="gender" />Vehicle Promo Code - Avail Instant Rewards upto Rs. 500 on Orders via Paytm
+                                <input type="radio" value="70" name="gender" />Food Promo Code - Avail Instant Rewards upto Rs. 500 on Orders via Paytm
                             </label>
                             <hr />
                             <label>
-                                <input type="radio" value="300" name="gender" />Vehicle Coupon Code for All Users : 40% Off upto Rs. 800 on Orders via Tez
+                                <input type="radio" value="60" name="gender" />Food Coupon Code for All Users : 40% Off upto Rs. 800 on Orders via Tez
                             </label>
                         </div>
                     </ModalBody>
@@ -138,12 +127,14 @@ const Payment = (props) => {
 }
 
 const mapStateToProps = state => ({
-    booking: state.user.booking
+    cart: state.cart,
+    amount: state.amount,
+    res_name: state.res_name
+
 })
 
 const mapDispatchToProps = dispatch => ({
-    payment_data: (pay_details) => dispatch(payment_data(pay_details)),
-    showBookings: (id) => dispatch(showBookings(id))
+
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(Payment);

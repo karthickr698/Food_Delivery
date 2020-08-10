@@ -60,7 +60,6 @@ class Register extends Component {
 
 
 const mapStateToProps = state => ({
-    is_auth: state.is_auth,
     iserror: state.iserror,
     isregister: state.isregister
 

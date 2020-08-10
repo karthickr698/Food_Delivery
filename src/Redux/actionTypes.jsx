@@ -1,6 +1,20 @@
 export const isAuth = "isAuth";
 export const FETCH_USER_DATA = "FETCH_USER_DATA";
 export const FETCH_USER_FAILURE = "FETCH_USER_FAILURE";
+
 export const POST_USER_DATA = "POST_USER_DATA";
 export const POST_USER_FAILURE = "POST_USER_FAILURE";
 export const POST_USER_SUCCESS = "POST_USER_SUCCESS";
+
+export const FETCH_HOTEL_DATA = "FETCH_HOTEL_DATA";
+export const FETCH_HOTEL_FAILURE = "FETCH_HOTEL_FAILURE";
+export const FETCH_HOTEL_SUCCESS = "FETCH_HOTEL_SUCCESS";
+
+export const FETCH_ITEMS_DATA = "FETCH_ITEMS_DATA";
+export const FETCH_ITEMS_FAILURE = "FETCH_ITEMS_FAILURE";
+export const FETCH_ITEMS_SUCCESS = "FETCH_ITEMS_SUCCESS";
+
+export const ADD_ITEMS = "ADD_ITEMS";
+export const MINUS_ITEMS = "MINUS_ITEMS";
+
+export const GETPAY = "GETPAY"
